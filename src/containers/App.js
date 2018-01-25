@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { selectCategory, fetchCategories, fetchProducts } from '../actions'
+import { fetchCategories, fetchProducts } from '../actions'
 
 import SearchBar from '../components/SearchBar'
 import Categories from '../components/Categories'
@@ -30,8 +30,21 @@ class App extends Component {
   }
 
   getCategory = (nextCategory, index) => {
-    this.props.dispatch(selectCategory(nextCategory))
+    console.log('inGetCategory')
+    // this.props.dispatch(selectCategory(nextCategory))
     this.props.dispatch(fetchProducts())
+  }
+
+  getAnswer = () => {
+    console.log('inAnswer')
+    // this.props.dispatch(selectCategory(nextCategory))
+    // this.props.dispatch(fetchProducts())
+  }
+
+  submit = () => {
+    console.log('inSubmit')
+    // this.props.dispatch(selectCategory(nextCategory))
+    // this.props.dispatch(fetchProducts())
   }
 
   handleSearch = (e) => {
@@ -41,13 +54,15 @@ class App extends Component {
   }
 
   render() {
-    const { categories, products, styles } = this.props
+    const { ...categories} = this.props
     return (
       <div>
         <div>            
-            <Categories categories={categories} getCategory={this.getCategory} styles={styles} />
+            {/* <Categories categories={categories} getCategory={this.getCategory} styles={styles} /> */}
+            <Categories questions={this.props} getCategory={this.getCategory} getAnswer={this.getAnswer} submit={this.submit} />
+            
             <SearchBar getValue={this.handleSearch}/>
-            <Products products={products}/>
+            {/* <Products products={products}/> */}
         </div>
       </div>
     )
@@ -66,16 +81,16 @@ const mapStateToProps = state => {
   } = productsListByCategory[category] || {
     products: []
   }
-  const {
-    styles
-  } = styledCategoriesList[category] || {
-    styles: []
-  }
+  // const {
+  //   styles
+  // } = styledCategoriesList[category] || {
+  //   styles: []
+  // }
 
   return {
     categories,
     products,
-    styles
+    // styles
   }
 }
 

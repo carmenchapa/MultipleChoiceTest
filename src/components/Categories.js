@@ -1,4 +1,6 @@
-import React from 'react'
+// import React from 'react'
+import React, { Component } from 'react'
+
 import PropTypes from 'prop-types'
 
 const nonselected = {
@@ -12,18 +14,46 @@ const selected = {
 	textDecoration: 'underline'
 }
 
-const Categories = ({...props}) => {
-	return(
-		  <ul>
-		    {props.categories.map((categories, i) =>
-		      <li key={i} onClick={()=>props.getCategory(categories.title, i)} style={ (props.styles[i] && props.styles[i].selected === true) ? selected : nonselected }>{categories.title}</li>
-		    )}
-		  </ul>
+// const submit = () => {
+// 	console.log('submited')
+// }
+
+// const Categories = ({...props}) => {
+
+	
+
+	class Categories extends Component {
+		constructor(props) {
+			super(props)
+			this.state = {
+					submited: false
+			}
+		}
+
+    render() {
+			console.log(this.props.questions.categories)
+			const data = this.props.questions.categories
+			return(
+				<div>
+					<ul>
+						{data.map((item, i) =>
+							<li key={i}  >{item.question}
+														<select onChange={() => this.props.getAnswer()} >
+																{item.options.map((opt, i) =>
+																		<option key={i} value={opt}>{opt}</option>
+																)}
+														</select>
+							</li>
+						)}
+					</ul>
+			<button onClick= {() => this.props.submit() }>submit</button>
+			</div>
 		)
+}
 }
 Categories.propTypes = {
   categories: PropTypes.array.isRequired,
   styles: PropTypes.array.isRequired
-}
 
+}
 export default Categories

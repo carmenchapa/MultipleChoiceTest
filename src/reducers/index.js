@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux'
 import {
-  SELECT_CATEGORY, STYLE_CATEGORIES,
+  // SELECT_CATEGORY, STYLE_CATEGORIES,
   REQUEST_CATEGORIES, RECEIVE_CATEGORIES,
   REQUEST_PRODUCTS, RECEIVE_PRODUCTS
 } from '../actions'
 
 const categories = (state = {
   categories: [],
-  styles: [],
+  // styles: [],
 }, action) => {
   switch (action.type) {
 
@@ -16,12 +16,12 @@ const categories = (state = {
         ...state,
       }
     case RECEIVE_CATEGORIES:
-    case STYLE_CATEGORIES:
+    // case STYLE_CATEGORIES:
 
       return {
         ...state,
         categories: action.categoriesItems,
-        styles: action.categoriesStyles
+        // styles: action.categoriesStyles
       }
    
     default:
@@ -49,30 +49,30 @@ const products = (state = {
   }
 }
 
-const selectedCategory = (state = 'Drinks Cabinet', action) => {
-  switch (action.type) {
-    case SELECT_CATEGORY:
-      return action.category
-    default:
-      return state
-  }
-}
+// const selectedCategory = (state = 'Drinks Cabinet', action) => {
+//   switch (action.type) {
+//     case SELECT_CATEGORY:
+//       return action.category
+//     default:
+//       return state
+//   }
+// }
 
-const styledCategoriesList = (state = { }, action) => {
-  switch (action.type) {
-    case STYLE_CATEGORIES:
-    	return {
-    		...state,
-    		[action.styles]: categories(state[action], action)
-    	}
-    default:
-      return state
-    	}
-}
+// const styledCategoriesList = (state = { }, action) => {
+//   switch (action.type) {
+//     // case STYLE_CATEGORIES:
+//     	return {
+//     		...state,
+//     		[action.styles]: categories(state[action], action)
+//     	}
+//     default:
+//       return state
+//     	}
+// }
 
 const categoriesList = (state = { }, action) => {
   switch (action.type) {
-  	case SELECT_CATEGORY:
+  	// case SELECT_CATEGORY:
     case RECEIVE_CATEGORIES:
     case REQUEST_CATEGORIES:
       return {
@@ -100,8 +100,8 @@ const productsListByCategory = (state = { }, action) => {
 const rootReducer = combineReducers({
   categoriesList,
   productsListByCategory,
-  selectedCategory,
-  styledCategoriesList
+  // selectedCategory,
+  // styledCategoriesList
 })
 
 export default rootReducer
