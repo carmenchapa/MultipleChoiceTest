@@ -35,10 +35,9 @@ class App extends Component {
     this.props.dispatch(fetchProducts())
   }
 
-  getAnswer = () => {
+  getAnswer = (event) => {
     console.log('inAnswer')
-    // this.props.dispatch(selectCategory(nextCategory))
-    // this.props.dispatch(fetchProducts())
+    console.log(event.target.value)
   }
 
   submit = () => {

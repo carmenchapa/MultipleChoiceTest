@@ -30,6 +30,11 @@ const selected = {
 			}
 		}
 
+		handleChange(event) {
+			console.log(event.target.value)
+			// this.setState({value: event.target.value});
+		}
+
     render() {
 			console.log(this.props.questions.categories)
 			const data = this.props.questions.categories
@@ -38,7 +43,7 @@ const selected = {
 					<ul>
 						{data.map((item, i) =>
 							<li key={i}  >{item.question}
-														<select onChange={() => this.props.getAnswer()} >
+														<select onChange={this.handleChange} >
 																{item.options.map((opt, i) =>
 																		<option key={i} value={opt}>{opt}</option>
 																)}
