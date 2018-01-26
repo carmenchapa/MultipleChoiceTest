@@ -1,47 +1,60 @@
 // import React from 'react'
 import React, { Component } from 'react'
 
+const container = {
+	width: '400px',
+	margin: 'auto',
+	marginTop: '5em',
+	display: 'block',
+}
 
 const questionStyle = {
-	padding: '15px',
 	listStyleType: 'none',
+	margin: 'auto',
+	display:'block',
 	fontFamily: 'Arial, Helvetica, sans-serif'
 }
 
-const feedbackStyle = {
+const bigText = {
 	...questionStyle,
 	fontSize: '25px',
-	padding: '60px',
-	margin:'auto'
+	width: '400px',
+	display: 'block',
+	margin:' auto',
+	marginTop: '20px',
+	marginBottom: '30px',
+	textAlign: 'center'
+}
 
+const common = {
+	height: '29px',
+   	overflow: 'hidden',
+	display: 'block',
+	margin:'auto',
+  	marginTop: '15px',
+  	border: 'none',
+	outline: 'none',
 }
 
 const buttonStyle = {
-	height: '29px',
-   	overflow: 'hidden',
+	...common,
   	width: '100px',
-	border: 'none',
-	margin:'auto',
-  	marginTop: '15px',
-	display: 'block',
 	backgroundColor: '#b0bec5',
 	WebkitBorderRadius: '50px',
 	MozBorderRadius: '50px',
-	borderRadius: '50px',
+	borderRadius: '50px'
+}
 
-
+const buttonHover = {
+	...buttonStyle,
+	backgroundColor: '#90a4ae',
 }
 
 const nonselected = {
-
-	height: '29px',
-   	overflow: 'hidden',
-  	width: '300px',
-  	border: 'none',
-  	marginTop: '15px',
-
-	display: 'block',
-	padding: '60px',
+	...common,
+  	width: '400px',
+  	marginBottom: '15px',
+	padding: '0',
 	backgroundColor: '#e0f2f1'
 }
 
@@ -56,57 +69,41 @@ const wrong = {
 }
 
 
-
 	
 class Test extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			showFeedback : false,
-			score: 0
+			buttonHover: false
 		}
 		this.submit = this.submit.bind(this)
-
 	}
 
-	getFeedback = () => {
-		//  setTimeout(console.log(this.props.answers), 10000) 
-			console.log(this.props.answers)
-		  
-		//   const score = this.props.answers.map((item, i) => this.props.answers[i].i === 'correct' ? 1 : 0)
-		  this.setState((prevState, props) => {
-			return {
-				score: 'score',
-				showFeedback : true};
-		  })
-	  
+	getFeedback = () => {		  
+	  this.setState((prevState, props) => {
+		return {
+			showFeedback : true};
+	  })	  
 	}
 
+	toggleHover = () => {
+		  this.setState((prevState, props) => { return { buttonHover : !this.state.buttonHover} })
+	}
 
 	submit() {
-	console.log(this.props)
-
-	this.props.submit()
-	this.getFeedback()
-	
-	}
-
-	handleChange(event) {
-		console.log(event.target.value)
+		this.props.submit()
+		this.getFeedback()
 	}
 
 	render() {
-		console.log(this.props)
-		console.log(this.props.answers)
-		console.log(this.props.answers[1])
 		const data = this.props.data.questions
-		// const
 		return(
-		<div>
-			<ul>
-			{data.map((item, i) =>
-			
-			// console.log(this.props.answers[i])
+		<div style={container}>
+			<p style={bigText}>Multiple Choice Test</p>
+
+			<ul style={{padding: 0}}>
+			{data.map((item, i) =>			
 				<li key={i} style={questionStyle} >{item.question}
 					<select name={i} onChange={this.props.getAnswer} style={this.props.answers[i] && this.props.answers[i].i === 'correct' ? correct : this.props.answers[i] && this.props.answers[i].i === 'wrong' ? wrong : nonselected}>
 						{item.options.map((opt, i) =>
@@ -116,20 +113,20 @@ class Test extends Component {
 				</li>
 			)}
 			</ul>
-		{/* <button onClick= {() => this.props.submit() }>submit</button> */}
-		<button style={buttonStyle} onClick= { this.submit }>submit</button>
+
+		<button style={!this.state.buttonHover ? buttonStyle : buttonHover} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover} onClick= { this.submit }>submit</button>
+
 		{this.state.showFeedback ?
            <Feedback score= {Object.values(this.props.answers).reduce((a, b, i) =>  {return this.props.answers[i] && this.props.answers[i].i === 'correct' ? a + 1 : a },0)} /> :
            null
           }
-
-		
+          
 		</div>
 		)
 	}
 }
 
-const Feedback = (props) => <p style={feedbackStyle}>Your total score is {props.score}</p>
+const Feedback = (props) => <p style={bigText}>Your total score is {props.score}</p>
 
 
 export default Test

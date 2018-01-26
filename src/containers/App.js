@@ -6,14 +6,6 @@ import Test from '../components/Test'
 
 class App extends Component {
 
-  // constructor(){
-  //   super()
-  //   this.state = {
-  //     showFeedback : false,
-  //     score: 0
-  //   }
-  // }
-
   componentDidMount() {
     const { dispatch } = this.props
     dispatch(fetchQuestions())
@@ -24,26 +16,13 @@ class App extends Component {
       const { dispatch } = nextProps
       dispatch(fetchQuestions())
     }
-    console.log(this.props.answers)  
   }
 
   getAnswer = (event) => {
     const index = event.target.name
     const answer = event.target.value
     this.props.dispatch(setPickedAnswer(index, answer))
-
-    // console.log(this.state.showFeedback)
   }
-
-  // getFeedback = () => {
-  // //  setTimeout(console.log(this.props.answers), 10000) 
-    
-  //   // const score = this.props.answers.map((item, index) => )
-  //   this.setState((prevState, props) => {
-  //     return {showFeedback : true};
-  //   })
-
-  // }
 
   submit = () => {
     console.log('inSubmit')
@@ -54,17 +33,10 @@ class App extends Component {
     return (
       <div>
           <Test data={this.props}  getAnswer={this.getAnswer} submit={this.submit} answers={this.props.answers} />
-          {/* {this.state.showFeedback ?
-           <Feedback score= {this.state.score} /> :
-           null
-          } */}
       </div>
     )
   }
 }
-
-
-// const Feedback = (props) => <p>Your total score is {props.score}</p>
 
 
 const mapStateToProps = state => {
