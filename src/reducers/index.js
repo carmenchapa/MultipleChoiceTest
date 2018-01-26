@@ -1,9 +1,32 @@
 import { combineReducers } from 'redux'
 import {
   // SELECT_CATEGORY, STYLE_CATEGORIES,
+  SET_PICKED_ANSWER, 
+
   REQUEST_CATEGORIES, RECEIVE_CATEGORIES,
-  REQUEST_PRODUCTS, RECEIVE_PRODUCTS
 } from '../actions'
+
+// const questions = (state = {
+//   categories: [],
+// }, action) => {
+//   switch (action.type){
+//     case SET_PICKED_ANSWER:
+//       return {
+//         ...state,
+//         categories: action.categoriesItems,
+//       }
+//       // return state.map(
+//       //   (item, index) =>
+//       //     action.index === index
+//       //       ? { pickedAnswer: action.text }
+//       //       : item
+//       //   )
+
+//     default:
+//       return state
+//   }
+// }
+
 
 const categories = (state = {
   categories: [],
@@ -15,6 +38,8 @@ const categories = (state = {
       return {
         ...state,
       }
+    // case SET_PICKED_ANSWER:
+
     case RECEIVE_CATEGORIES:
     // case STYLE_CATEGORIES:
 
@@ -29,46 +54,27 @@ const categories = (state = {
   }
 }
 
-const products = (state = {
-  products: []
-}, action) => {
+const questionarie = (state = {}, action) => {
   switch (action.type) {
-
-    case REQUEST_PRODUCTS:
+    case SET_PICKED_ANSWER:
+    console.log('in set picked')
+    console.log(action.index)
+    console.log(typeof(action.text))
       return {
         ...state,
+
+        [action.index]: action.text
       }
-    case RECEIVE_PRODUCTS:
-      return {
-        ...state,
-        products: action.productsItems
-      } 
-
-    default:
+      // return state.map(
+      //   (item, index) => 
+      //     action.index === index
+      //       ? { text: action.text }
+      //       : item
+      //   )
+      default:
       return state
   }
 }
-
-// const selectedCategory = (state = 'Drinks Cabinet', action) => {
-//   switch (action.type) {
-//     case SELECT_CATEGORY:
-//       return action.category
-//     default:
-//       return state
-//   }
-// }
-
-// const styledCategoriesList = (state = { }, action) => {
-//   switch (action.type) {
-//     // case STYLE_CATEGORIES:
-//     	return {
-//     		...state,
-//     		[action.styles]: categories(state[action], action)
-//     	}
-//     default:
-//       return state
-//     	}
-// }
 
 const categoriesList = (state = { }, action) => {
   switch (action.type) {
@@ -84,24 +90,10 @@ const categoriesList = (state = { }, action) => {
   }
 }
 
-const productsListByCategory = (state = { }, action) => {
-  switch (action.type) {
-    case RECEIVE_PRODUCTS:
-    case REQUEST_PRODUCTS:
-      return {
-        ...state,
-        [action.products]: products(state[action.products], action)
-      }
-    default:
-      return state
-  }
-}
 
 const rootReducer = combineReducers({
+  questionarie,
   categoriesList,
-  productsListByCategory,
-  // selectedCategory,
-  // styledCategoriesList
 })
 
 export default rootReducer

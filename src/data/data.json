@@ -12,6 +12,7 @@
     "q2": {
         "question": "5 + 7 = ?",
         "options": [
+            "Select your answer",
             "10",
             "11",
             "12",
@@ -22,6 +23,7 @@
     "q3": {
         "question": "12 - 8 = ?",
         "options": [
+            "Select your answer",
             "1",
             "2",
             "3",
@@ -32,6 +34,7 @@
     "q4": {
         "question": "What causes night and day?",
         "options": [
+            "Select your answer",
             "The earth spins on its axis.",
             "The earth moves around the sun.",
             "Clouds block out the sun's light.",
