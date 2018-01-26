@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchQuestions, setPickedAnswer, fetchAnswers } from '../actions'
 
-import Categories from '../components/Categories'
+import Test from '../components/Test'
 
 class App extends Component {
   static propTypes = {
@@ -23,12 +23,15 @@ class App extends Component {
       dispatch(fetchQuestions())
       // dispatch(fetchProducts())
     }
+
+  console.log(this.props.answers)
+    
   }
 
   getAnswer = (event) => {
     // console.log('inAnswer')
-    console.log(event.target.value)
-    console.log(event.target.name)
+    console.log(this.props.answers)
+    // console.log(event.target.name)
     const index = event.target.name
     const answer = event.target.value
     this.props.dispatch(setPickedAnswer(index, answer))
@@ -41,28 +44,45 @@ class App extends Component {
   }
 
   render() {
-    // const { ...categories} = this.props
     return (
       <div>
-          <Categories data={this.props}  getAnswer={this.getAnswer} submit={this.submit} />
+          <Test data={this.props}  getAnswer={this.getAnswer} submit={this.submit} answers={this.props.answers} />
       </div>
     )
   }
 }
 
+
+
 const mapStateToProps = state => {
-  const { category, questionsList } = state
-console.log('category', category )
+
+  
+  const { some, questionsList, questionarie } = state
+
+  console.log(questionsList)
+  console.log(questionarie)
+// console.log('category', category )
   // const { category, categoriesList, styledCategoriesList } = state
   const {
     questions
-  } = questionsList[category] || {
+  } = questionsList[some] || {
     questions: []
   }
 
+  // const {
+  //   answers 
+  // } = questionarie[some] || {
+  //   answers: []
+  // }
+
+  const answers = questionarie
+
   return {
     questions,
+    answers
   }
 }
+
+// console.log(mapStateToProps())
 
 export default connect(mapStateToProps)(App)
