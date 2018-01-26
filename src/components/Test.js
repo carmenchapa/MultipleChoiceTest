@@ -8,6 +8,10 @@ const questionStyle = {
 	fontFamily: 'Arial, Helvetica, sans-serif'
 }
 
+const feedbackStyle = {
+	
+}
+
 const nonselected = {
 
 	height: '29px',
@@ -35,10 +39,34 @@ const wrong = {
 class Test extends Component {
 	constructor(props) {
 		super(props)
+		this.state = {
+			showFeedback : false,
+			score: 0
+		}
 		this.submit = this.submit.bind(this)
+
 	}
+
+	getFeedback = () => {
+		//  setTimeout(console.log(this.props.answers), 10000) 
+			console.log(this.props.answers)
+		  
+		//   const score = this.props.answers.map((item, i) => this.props.answers[i].i === 'correct' ? 1 : 0)
+		  this.setState((prevState, props) => {
+			return {
+				score: 'score',
+				showFeedback : true};
+		  })
+	  
+	}
+
+
 	submit() {
 	console.log(this.props)
+
+	this.props.submit()
+	this.getFeedback()
+	
 	}
 
 	handleChange(event) {
@@ -50,6 +78,7 @@ class Test extends Component {
 		console.log(this.props.answers)
 		console.log(this.props.answers[1])
 		const data = this.props.data.questions
+		// const
 		return(
 		<div>
 			<ul>
@@ -67,9 +96,18 @@ class Test extends Component {
 			</ul>
 		<button onClick= {() => this.props.submit() }>submit</button>
 		<button onClick= { this.submit }>submit</button>
+		{this.state.showFeedback ?
+           <Feedback score= {Object.values(this.props.answers).reduce((a, b, i) =>  {return this.props.answers[i] && this.props.answers[i].i === 'correct' ? a + 1 : a },0)} /> :
+           null
+          }
+
+		
 		</div>
 		)
 	}
 }
+
+const Feedback = (props) => <p>Your total score is {props.score}</p>
+
 
 export default Test

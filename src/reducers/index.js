@@ -1,12 +1,5 @@
 import { combineReducers } from 'redux'
-import {
-  // SELECT_CATEGORY, STYLE_CATEGORIES,
-  SET_PICKED_ANSWER, 
-
-  RECEIVE_QUESTIONS,
-
-   RECEIVE_ANSWERS
-} from '../actions'
+import { SET_PICKED_ANSWER, RECEIVE_QUESTIONS, RECEIVE_ANSWERS } from '../actions'
 
 
 const questions = (state = { questions: []}, action) => {
@@ -28,22 +21,14 @@ const questionarie = (state = {}, action) => {
         ...state,
         [action.index]: action.text
       }
-
     case RECEIVE_ANSWERS:   
       const newState = action.answersItems.map((item, i) => { 
         return state[i] == item.answer ? { i : 'correct' } : {i : 'wrong'}
       })
-    console.log(newState)
       return {
         ...state,
         ...newState
       }
-
-    // return {
-    //   ...state,
-    //   [action.answers]: answers(state[action.answers], action)
-    // }
-
     default:
       return state
   }

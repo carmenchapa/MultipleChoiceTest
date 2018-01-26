@@ -3,9 +3,7 @@ import answers from '../data/answers.json'
 
 
 export const SET_PICKED_ANSWER = 'SET_PICKED_ANSWER'
-
 export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS'
-
 export const RECEIVE_ANSWERS = 'RECEIVE_ANSWERS'
 
 
@@ -15,12 +13,19 @@ export const setPickedAnswer = (index, answer) => ({
   text: answer
 })
 
-
 export const receiveQuestions = (data) => ({
   type: RECEIVE_QUESTIONS,
   questionsItems: Object.keys(data).map(child => data[child]),
 })
 
+export const receiveAnswers = (answers) => ({
+  type: RECEIVE_ANSWERS,
+  answersItems: Object.keys(answers).map(child => answers[child]),
+})
+
+//*************
+//***FETCH DATA
+//*************
 
 function handleErrors(response) {
   if (!response.ok) {
@@ -35,15 +40,6 @@ export const fetchQuestions = () => dispatch => {
   .then(dispatch(receiveQuestions(data)))
   .catch(error => console.log(error) )
 }
-
-//*************
-
-
-export const receiveAnswers = (answers) => ({
-  type: RECEIVE_ANSWERS,
-  answersItems: Object.keys(answers).map(child => answers[child]),
-})
-
 
 export const fetchAnswers = () => dispatch => {
   return fetch(answers)

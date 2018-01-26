@@ -1,45 +1,52 @@
 import React, { Component } from 'react'
-// import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { fetchQuestions, setPickedAnswer, fetchAnswers } from '../actions'
 
 import Test from '../components/Test'
 
 class App extends Component {
-  static propTypes = {
-    // categories: PropTypes.array.isRequired,
-    // dispatch: PropTypes.func.isRequired
-  }
+
+  // constructor(){
+  //   super()
+  //   this.state = {
+  //     showFeedback : false,
+  //     score: 0
+  //   }
+  // }
 
   componentDidMount() {
     const { dispatch } = this.props
     dispatch(fetchQuestions())
-    // dispatch(fetchProducts())
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.category !== this.props.category) {
       const { dispatch } = nextProps
       dispatch(fetchQuestions())
-      // dispatch(fetchProducts())
     }
-
-  console.log(this.props.answers)
-    
+    console.log(this.props.answers)  
   }
 
   getAnswer = (event) => {
-    // console.log('inAnswer')
-    console.log(this.props.answers)
-    // console.log(event.target.name)
     const index = event.target.name
     const answer = event.target.value
     this.props.dispatch(setPickedAnswer(index, answer))
+
+    // console.log(this.state.showFeedback)
   }
+
+  // getFeedback = () => {
+  // //  setTimeout(console.log(this.props.answers), 10000) 
+    
+  //   // const score = this.props.answers.map((item, index) => )
+  //   this.setState((prevState, props) => {
+  //     return {showFeedback : true};
+  //   })
+
+  // }
 
   submit = () => {
     console.log('inSubmit')
-    // this.props.dispatch(selectCategory(nextCategory))
     this.props.dispatch(fetchAnswers())
   }
 
@@ -47,33 +54,27 @@ class App extends Component {
     return (
       <div>
           <Test data={this.props}  getAnswer={this.getAnswer} submit={this.submit} answers={this.props.answers} />
+          {/* {this.state.showFeedback ?
+           <Feedback score= {this.state.score} /> :
+           null
+          } */}
       </div>
     )
   }
 }
 
 
+// const Feedback = (props) => <p>Your total score is {props.score}</p>
+
 
 const mapStateToProps = state => {
 
-  
   const { some, questionsList, questionarie } = state
-
-  console.log(questionsList)
-  console.log(questionarie)
-// console.log('category', category )
-  // const { category, categoriesList, styledCategoriesList } = state
   const {
     questions
   } = questionsList[some] || {
     questions: []
   }
-
-  // const {
-  //   answers 
-  // } = questionarie[some] || {
-  //   answers: []
-  // }
 
   const answers = questionarie
 
@@ -82,7 +83,5 @@ const mapStateToProps = state => {
     answers
   }
 }
-
-// console.log(mapStateToProps())
 
 export default connect(mapStateToProps)(App)
