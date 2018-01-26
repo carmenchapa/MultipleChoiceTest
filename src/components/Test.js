@@ -9,7 +9,27 @@ const questionStyle = {
 }
 
 const feedbackStyle = {
-	
+	...questionStyle,
+	fontSize: '25px',
+	padding: '60px',
+	margin:'auto'
+
+}
+
+const buttonStyle = {
+	height: '29px',
+   	overflow: 'hidden',
+  	width: '100px',
+	border: 'none',
+	margin:'auto',
+  	marginTop: '15px',
+	display: 'block',
+	backgroundColor: '#b0bec5',
+	WebkitBorderRadius: '50px',
+	MozBorderRadius: '50px',
+	borderRadius: '50px',
+
+
 }
 
 const nonselected = {
@@ -34,6 +54,8 @@ const wrong = {
 	...nonselected,
 	backgroundColor: '#ff7043'
 }
+
+
 
 	
 class Test extends Component {
@@ -94,8 +116,8 @@ class Test extends Component {
 				</li>
 			)}
 			</ul>
-		<button onClick= {() => this.props.submit() }>submit</button>
-		<button onClick= { this.submit }>submit</button>
+		{/* <button onClick= {() => this.props.submit() }>submit</button> */}
+		<button style={buttonStyle} onClick= { this.submit }>submit</button>
 		{this.state.showFeedback ?
            <Feedback score= {Object.values(this.props.answers).reduce((a, b, i) =>  {return this.props.answers[i] && this.props.answers[i].i === 'correct' ? a + 1 : a },0)} /> :
            null
@@ -107,7 +129,7 @@ class Test extends Component {
 	}
 }
 
-const Feedback = (props) => <p>Your total score is {props.score}</p>
+const Feedback = (props) => <p style={feedbackStyle}>Your total score is {props.score}</p>
 
 
 export default Test
