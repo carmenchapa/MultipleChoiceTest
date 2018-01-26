@@ -1,0 +1,18 @@
+{
+    "q1": {
+        "question": "Which one is correct team name in NBA?",
+        "answer": "Huston Rocket"
+    },
+    "q2": {
+        "question": "5 + 7 = ?",
+        "answer": "12"
+    },
+    "q3": {
+        "question": "12 - 8 = ?",
+        "answer": "4"
+    },
+    "q4": {
+        "question": "What causes night and day?",
+        "answer": "The earth spins on its axis."
+    }
+}

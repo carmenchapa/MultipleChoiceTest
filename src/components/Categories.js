@@ -39,9 +39,7 @@ const wrong = {
 	backgroundColor: '#ff7043'
 }
 
-// const submit = () => {
-// 	console.log('submited')
-// }
+
 // const Categories = ({...props}) => {
 
 	
@@ -49,10 +47,29 @@ const wrong = {
 class Categories extends Component {
 constructor(props) {
 	super(props)
-	this.state = {
-			submited: false
-	}
+	// this.state = this.props.questions.questions.map((item, i) => {return {id: i, isCorrect: false}}
+	console.log(this.state)
+	this.submit = this.submit.bind(this)
 }
+
+
+componentWillReceiveProps(nextProps){
+
+this.setState((prevState, props) => {
+	console.log(props.data.questions.map((item, i) => {return {state: false}}))
+		  return props.data.questions.map((item, i) => {return {state: 'nonselected'}})
+
+		  // return props.products.map((products, i) => {return {id: i, isVisible: false}})
+		});
+console.log(this.state)
+}
+
+submit() {
+	console.log(this.state)
+}
+
+
+
 
 handleChange(event) {
 	console.log(event.target.value)
@@ -60,15 +77,15 @@ handleChange(event) {
 }
 
 render() {
-	console.log(this.props.questions.categories)
-	const data = this.props.questions.categories
+	console.log(this.props.data.questions)
+	const data = this.props.data.questions
 	return(
 	<div>
 		<ul>
 		{data.map((item, i) =>
 			<li key={i} style={questionStyle} >{item.question}
 				{/*<select onChange={this.handleChange} >*/}
-				<select name={i} onChange={this.props.getAnswer} style={correct}>
+				<select name={i} onChange={this.props.getAnswer} style={this.state[i].state === 'nonselected' ? nonselected : this.state[i].state === 'correct' ? correct: wrong}>
 					{item.options.map((opt, i) =>
 						<option key={i} value={opt}>{opt}</option>
 					)}
@@ -77,8 +94,9 @@ render() {
 		)}
 		</ul>
 	<button onClick= {() => this.props.submit() }>submit</button>
+	<button onClick= { this.submit }>submit</button>
 	</div>
-)
+	)
 }
 }
 // Categories.propTypes = {

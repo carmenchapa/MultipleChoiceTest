@@ -3,7 +3,9 @@ import {
   // SELECT_CATEGORY, STYLE_CATEGORIES,
   SET_PICKED_ANSWER, 
 
-  REQUEST_CATEGORIES, RECEIVE_CATEGORIES,
+  REQUEST_QUESTIONS, RECEIVE_QUESTIONS,
+
+  REQUEST_ANSWERS, RECEIVE_ANSWERS
 } from '../actions'
 
 // const questions = (state = {
@@ -28,24 +30,26 @@ import {
 // }
 
 
-const categories = (state = {
-  categories: [],
+// const answers
+
+const questions = (state = {
+  questions: [],
   // styles: [],
 }, action) => {
   switch (action.type) {
 
-    case REQUEST_CATEGORIES:
-      return {
-        ...state,
-      }
+    // case REQUEST_QUESTIONS:
+    //   return {
+    //     ...state,
+    //   }
     // case SET_PICKED_ANSWER:
 
-    case RECEIVE_CATEGORIES:
+    case RECEIVE_QUESTIONS:
     // case STYLE_CATEGORIES:
 
       return {
         ...state,
-        categories: action.categoriesItems,
+        questions: action.questionsItems,
         // styles: action.categoriesStyles
       }
    
@@ -71,19 +75,35 @@ const questionarie = (state = {}, action) => {
       //       ? { text: action.text }
       //       : item
       //   )
-      default:
-      return state
+
+    case RECEIVE_ANSWERS:
+    console.log(state)
+    console.log(action.index)
+
+      return {
+        ...state,
+//check here if the state status(response)  match the correct answer, gotten in fetchAnswers. Pass the required parameters
+        [action.index]: action.text ? action.text : 'something else'
+      }
+        // return state.map(
+        // (item, index) => 
+        //   action.index === index
+        //     ? { text: action.text }
+        //     : item
+        // )
+    default:
+    return state
   }
 }
 
-const categoriesList = (state = { }, action) => {
+const questionsList = (state = { }, action) => {
   switch (action.type) {
   	// case SELECT_CATEGORY:
-    case RECEIVE_CATEGORIES:
-    case REQUEST_CATEGORIES:
+    case RECEIVE_QUESTIONS:
+    // case REQUEST_QUESTIONS:
       return {
         ...state,
-        [action.categories]: categories(state[action.categories], action)
+        [action.questions]: questions(state[action.questions], action)
       }
     default:
       return state
@@ -93,7 +113,7 @@ const categoriesList = (state = { }, action) => {
 
 const rootReducer = combineReducers({
   questionarie,
-  categoriesList,
+  questionsList,
 })
 
 export default rootReducer

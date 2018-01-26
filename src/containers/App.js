@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 // import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { fetchCategories, setPickedAnswer } from '../actions'
+import { fetchQuestions, setPickedAnswer, fetchAnswers } from '../actions'
 
 import Categories from '../components/Categories'
 
@@ -13,20 +13,20 @@ class App extends Component {
 
   componentDidMount() {
     const { dispatch } = this.props
-    dispatch(fetchCategories())
+    dispatch(fetchQuestions())
     // dispatch(fetchProducts())
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.category !== this.props.category) {
       const { dispatch } = nextProps
-      dispatch(fetchCategories())
+      dispatch(fetchQuestions())
       // dispatch(fetchProducts())
     }
   }
 
   getAnswer = (event) => {
-    console.log('inAnswer')
+    // console.log('inAnswer')
     console.log(event.target.value)
     console.log(event.target.name)
     const index = event.target.name
@@ -37,32 +37,31 @@ class App extends Component {
   submit = () => {
     console.log('inSubmit')
     // this.props.dispatch(selectCategory(nextCategory))
-    // this.props.dispatch(fetchProducts())
+    this.props.dispatch(fetchAnswers())
   }
 
   render() {
     // const { ...categories} = this.props
     return (
       <div>
-          <Categories questions={this.props}  getAnswer={this.getAnswer} submit={this.submit} />
+          <Categories data={this.props}  getAnswer={this.getAnswer} submit={this.submit} />
       </div>
     )
   }
 }
 
 const mapStateToProps = state => {
-  const { category, categoriesList } = state
-
+  const { category, questionsList } = state
+console.log('category', category )
   // const { category, categoriesList, styledCategoriesList } = state
   const {
-    categories
-  } = categoriesList[category] || {
-    categories: []
+    questions
+  } = questionsList[category] || {
+    questions: []
   }
 
-
   return {
-    categories,
+    questions,
   }
 }
 
